@@ -1,0 +1,1 @@
+g++       CMakeFiles/main.dir/main.cpp.o CMakeFiles/main.dir/ib_session.cpp.o CMakeFiles/main.dir/play_wait_thread.cpp.o  -o main -rdynamic -lpthread -libverbs 

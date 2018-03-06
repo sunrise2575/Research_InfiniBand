@@ -1,2 +1,0 @@
-# ibsession
-InfiniBand Session
