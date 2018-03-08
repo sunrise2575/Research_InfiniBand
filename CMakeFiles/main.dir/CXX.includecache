@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,7 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/mnt/hgst6_hdd/home/heeyong/newibsession/ib_session.h
+/mnt/hgst6_hdd/home/heeyong/ibsession/ib_session.cpp
+ib_session.h
+/mnt/hgst6_hdd/home/heeyong/ibsession/ib_session.h
+
+/mnt/hgst6_hdd/home/heeyong/ibsession/ib_session.h
 cstring
 -
 cmath
@@ -28,9 +32,9 @@ netinet/in.h
 infiniband/verbs.h
 -
 play_wait_thread.h
-/mnt/hgst6_hdd/home/heeyong/newibsession/play_wait_thread.h
+/mnt/hgst6_hdd/home/heeyong/ibsession/play_wait_thread.h
 
-/mnt/hgst6_hdd/home/heeyong/newibsession/main.cpp
+/mnt/hgst6_hdd/home/heeyong/ibsession/main.cpp
 iostream
 -
 getopt.h
@@ -40,9 +44,13 @@ unistd.h
 string.h
 -
 ib_session.h
-/mnt/hgst6_hdd/home/heeyong/newibsession/ib_session.h
+/mnt/hgst6_hdd/home/heeyong/ibsession/ib_session.h
 
-/mnt/hgst6_hdd/home/heeyong/newibsession/play_wait_thread.h
+/mnt/hgst6_hdd/home/heeyong/ibsession/play_wait_thread.cpp
+play_wait_thread.h
+/mnt/hgst6_hdd/home/heeyong/ibsession/play_wait_thread.h
+
+/mnt/hgst6_hdd/home/heeyong/ibsession/play_wait_thread.h
 thread
 -
 mutex

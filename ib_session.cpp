@@ -397,3 +397,51 @@ void ib_session::rdma_write(
 
 	this->msg_comp_checker_thread->wait();
 }
+
+void ib_session::rdma_read(
+		const size_t local_offset,
+		const size_t remote_offset,
+		const size_t message_size)
+{
+	const uint32_t stream_size = this->port_attr->max_msg_sz;
+	this->stream_count = (uint32_t)ceil((double)message_size/(double)stream_size);
+
+	assert((int)this->stream_count <= this->device_attr->max_qp_wr);
+
+	this->msg_comp_checker_thread->play();
+
+	for (uint32_t i = 0; i < this->stream_count; ++i) {
+		ibv_sge sge;
+		memset(&sge, 0, sizeof(ibv_sge));
+
+		sge.addr = (uint64_t)this->local_mr->addr
+			+ (uint64_t)local_offset
+			+ (uint64_t)i * (uint64_t)stream_size;
+		if (i == this->stream_count - 1) {
+			sge.length = (uint32_t)(message_size - (size_t)i * (size_t)stream_size);
+		} else {
+			sge.length = stream_size;
+		}
+
+		sge.lkey = this->local_mr->lkey;
+
+		ibv_send_wr wr, *bad_wr;
+		memset(&wr, 0, sizeof(ibv_send_wr));
+
+		wr.wr_id = i;
+		wr.sg_list = &sge;
+		wr.num_sge = 1;
+		wr.next = nullptr;
+		wr.opcode = IBV_WR_RDMA_READ;
+		wr.send_flags = IBV_SEND_SIGNALED;
+
+		wr.wr.rdma.remote_addr = (uint64_t)this->remote_mr.addr
+			+ (uint64_t)remote_offset
+			+ (uint64_t)i * (uint64_t)stream_size;
+		wr.wr.rdma.rkey = this->remote_mr.rkey;
+
+		assert(!ibv_post_send(this->qp, &wr, &bad_wr));
+	}
+
+	this->msg_comp_checker_thread->wait();
+}

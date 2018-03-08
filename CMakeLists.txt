@@ -1,18 +1,15 @@
-# project setting
-CMAKE_MINIMUM_REQUIRED( VERSION 2.8 )
-PROJECT ( ib_session )
+project(ib_session)
 
-# set compiler
-SET( CMAKE_CXX_COMPILER g++ )
+cmake_minimum_required(VERSION 3.10.2)
 
-# compile options
-ADD_COMPILE_OPTIONS( --std=c++11 -Wall -O3 -lpthread )
+set(CMAKE_CXX_COMPILER g++)
 
-# link libs
-LINK_LIBRARIES( pthread ibverbs )
+add_compile_options(--std=c++11 -Wall -O3)
 
-# cpp files
-SET( SOURCE_FILES main.cpp ib_session.cpp play_wait_thread.cpp )
+link_libraries(pthread ibverbs)
 
-# make executable
-ADD_EXECUTABLE( main ${SOURCE_FILES} )
+file(GLOB SOURCE_FILES
+	${CMAKE_SOURCE_DIR}/*.cpp
+)
+
+add_executable( main ${SOURCE_FILES} )

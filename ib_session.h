@@ -60,6 +60,7 @@ public:
 
 	// data transfer
 	void rdma_write(const size_t local_offset, const size_t remote_offset, const size_t message_size);
+	void rdma_read(const size_t local_offset, const size_t remote_offset, const size_t message_size);
 };
 
 #endif
